@@ -1,0 +1,6 @@
+/* added important to overlap the styles of react-bootstrap */
+
+a{
+    text-decoration: none !important; 
+    color: inherit !important;
+}
