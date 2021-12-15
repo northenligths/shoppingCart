@@ -1,55 +1,57 @@
-import Button from "@restart/ui/esm/Button";
-import React from "react";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import { CartState } from "../context/Context";
+import Rating from "./Rating";
 
-export default function SingleProduct({ prod }) {
+const SingleProduct = ({ prod }) => {
   const {
     state: { cart },
-    dispatch, //dispatch triggers the action which then decides which action to perform whether to delete to an item or to add an item
+    dispatch,
   } = CartState();
+
   return (
     <div className="products">
       <Card>
         <Card.Img variant="top" src={prod.image} alt={prod.name} />
         <Card.Body>
+          <Card.Title>{prod.name}</Card.Title>
           <Card.Subtitle style={{ paddingBottom: 10 }}>
-            <span>Rs {prod.price.split(".")[0]}</span>
-            {prod.fastDelivery ? ( //here we are checking if the product is fast delivery and rendering text according to the condition
+            <span>₹ {prod.price.split(".")[0]}</span>
+            {prod.fastDelivery ? (
               <div>Fast Delivery</div>
             ) : (
-              <div>4 days Delivery</div>
+              <div>4 days delivery</div>
             )}
+            <Rating rating={prod.ratings} />
           </Card.Subtitle>
-          {cart.some((p) => p.id === prod.id) ? ( // some checks whether the given item is in the array or not
+          {cart.some((p) => p.id === prod.id) ? (
             <Button
-              onClick={() => {
+              variant="danger"
+              onClick={() =>
                 dispatch({
                   type: "REMOVE_FROM_CART",
                   payload: prod,
-                });
-              }}
-              variant="danger"
+                })
+              }
             >
-              Remove from cart
+              Remove from Cart
             </Button>
           ) : (
             <Button
-              onClick={() => {
+              onClick={() =>
                 dispatch({
-                  type: "ADD_T0_CART",
+                  type: "ADD_TO_CART",
                   payload: prod,
-                });
-              }}
+                })
+              }
               disabled={!prod.inStock}
             >
-              {/* disabled button if product not in stock */}
               {!prod.inStock ? "Out of Stock" : "Add to Cart"}
-              {/* Render text according to product availability */}
             </Button>
           )}
         </Card.Body>
       </Card>
     </div>
   );
-}
+};
+
+export default SingleProduct;

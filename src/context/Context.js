@@ -4,7 +4,7 @@
 import React from "react";
 import { createContext, useReducer, useContext } from "react"; //This is a react function to create context
 import faker from "faker";
-import { cartReducer } from "./Reducer";
+import { cartReducer, productReducer } from "./Reducer";
 const Cart = createContext(); //Here we have created context and named it Cart
 faker.seed(99); //This will restrict the data from changing on every page load
 
@@ -27,7 +27,18 @@ export default function Context({ children }) {
     cart: [], //Here we have created state for cart
   });
 
-  return <Cart.Provider value={{ state, dispatch }}>{children}</Cart.Provider>;
+  const [productState, productDispatch] = useReducer(productReducer, {
+    byStock: false,
+    byFastDelivery: false,
+    byRating: 0,
+    searchQuery: "",
+  });
+
+  return (
+    <Cart.Provider value={{ state, dispatch, productState, productDispatch }}>
+      {children}
+    </Cart.Provider>
+  );
 }
 
 export const CartState = () => {

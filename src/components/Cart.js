@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, FormControl, Image, ListGroup, Row } from "react-bootstrap";
+import { Col, Form, Image, ListGroup, Row } from "react-bootstrap";
 import { CartState } from "../context/Context";
 import { Button } from "react-bootstrap";
 import Rating from "./Rating";
@@ -32,12 +32,12 @@ export default function Cart() {
                 <Col md={2}>
                   <span>{prod.name}</span>
                 </Col>
-                <Col md={2}>Rs {prod.price}</Col>
+                <Col md={2}>₹ {prod.price}</Col>
                 <Col md={2}>
                   <Rating rating={prod.ratings} />
                 </Col>
                 <Col md={2}>
-                  <FormControl
+                  <Form.Control
                     as="select"
                     value={prod.qty}
                     onChange={(e) =>
@@ -45,15 +45,15 @@ export default function Cart() {
                         type: "CHANGE_CART_QTY",
                         payload: {
                           id: prod.id,
-                          qty: e.target.value,
-                        }, //this will change the qty of the items in cart
+                          qty: e.target.value, //this will change the qty of the items in cart
+                        },
                       })
                     }
                   >
                     {[...Array(prod.inStock).keys()].map((x) => (
                       <option key={x + 1}>{x + 1}</option>
                     ))}
-                  </FormControl>
+                  </Form.Control>
                 </Col>
                 <Col md={2}>
                   <Button
@@ -66,21 +66,21 @@ export default function Cart() {
                       })
                     }
                   >
-                    <AiFillDelete fontSize="20px" />{" "}
+                    <AiFillDelete fontSize="20px" />
                   </Button>
                 </Col>
               </Row>
             </ListGroup.Item>
           ))}
         </ListGroup>
-        <div className="filters summary">
-          <span className="title">Subtotal({cart.length}) items</span>
-          {/* display total items in the cart */}
-          <span style={{ fontWeight: 700, fontSize: 20 }}>Total:Rs{total}</span>
-          <Button type="button" disabled={cart.length === 0}>
-            Proceed To Checkout
-          </Button>
-        </div>
+      </div>
+      <div className="filters summary">
+        <span className="title">Subtotal ({cart.length}) items</span>
+        {/* display total items in cart */}
+        <span style={{ fontWeight: 700, fontSize: 20 }}>Total: ₹ {total}</span>
+        <Button type="button" disabled={cart.length === 0}>
+          Proceed to Checkout
+        </Button>
       </div>
     </div>
   );
