@@ -12,8 +12,13 @@ import {
   Badge,
   Button,
 } from "react-bootstrap";
+import { CartState } from "../context/Context";
 
 export default function Header() {
+  const {
+    state: { cart },
+    dispatch,
+  } = CartState();
   return (
     <div>
       <Navbar bg="dark" variant="dark" style={{ height: 80 }}>
@@ -29,7 +34,7 @@ export default function Header() {
             />
           </Navbar.Text>
           <Nav>
-            {/* <Dropdown alignRight>
+            <Dropdown alignRight>
               <Dropdown.Toggle variant="success">
                 <FaShoppingCart color="white" fontSize="25px" />
                 <Badge>{cart.length}</Badge>
@@ -71,7 +76,7 @@ export default function Header() {
                   <span style={{ padding: 10 }}>Cart is Empty!</span>
                 )}
               </Dropdown.Menu>
-            </Dropdown> */}
+            </Dropdown>
           </Nav>
         </Container>
       </Navbar>
