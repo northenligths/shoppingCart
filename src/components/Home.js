@@ -1,5 +1,6 @@
 import React from "react";
 import { CartState } from "../context/Context";
+import SideBar from "./SideBar";
 import SingleProduct from "./SingleProduct";
 import "./styles.css";
 
@@ -10,7 +11,7 @@ export default function Home() {
   //Here we have further destructured to get access to products inside our data in state
   return (
     <div className="home">
-      {/* <SideBar /> */}
+      <SideBar />
       <div className="productContainer">
         {products.map((prod) => {
           //mapping through products

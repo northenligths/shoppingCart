@@ -5,7 +5,7 @@ import { CartState } from "../context/Context";
 export default function SideBar() {
   const {
     productDispatch,
-    productState: { byStock, byFastDelivery, sort, byRating },
+    productState: { byFastDelivery, sort, byRating },
   } = CartState();
   return (
     <div>
@@ -55,7 +55,7 @@ export default function SideBar() {
                 type: "FILTER_BY_STOCK",
               })
             }
-            checked={byStock}
+            // checked={byStock}
           />
         </span>
         <span>
